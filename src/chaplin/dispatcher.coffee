@@ -75,8 +75,6 @@ module.exports = class Dispatcher
       @controllerLoaded route, params, options, Controller
 
   # Load the constructor for a given controller name.
-  # The default implementation uses require() from a AMD module loader
-  # like RequireJS to fetch the constructor.
   loadController: (name, handler) ->
     return handler name if name is Object name
 

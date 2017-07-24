@@ -77,18 +77,10 @@ utils =
     require('../mediator').execute 'router:route',
       pathDesc, params, options
 
-  # Determines module system and returns module loader function.
   loadModule: do ->
-    {define, require} = window
-
-    if typeof define is 'function' and define.amd
-      (moduleName, handler) ->
-        require [moduleName], handler
-    else
-      enqueue = setImmediate ? setTimeout
-
-      (moduleName, handler) ->
-        enqueue -> handler require moduleName
+    (moduleName, handler) ->
+      require.ensure [moduleName], ->
+        handler require(moduleName)
 
   # DOM helpers
   # -----------
